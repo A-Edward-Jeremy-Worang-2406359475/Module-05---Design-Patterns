@@ -99,3 +99,35 @@ bisa lihat respong langsung, debug api lebih mudah,  fitur yang berguna seperti 
 untuk mengelompokkan endpoint, env variables untuk menyimpan url atau parameter, request body editor memudahkan kirim json dan history melihat requst sebelumnya, dll.
 
 #### Reflection Publisher-3
+
+1. pada tutorial ini kita menggunakan Push model. Alasannya karena publisher secara langsung mengirim data notifikasi ke subscriber saat ada event tertentu, misalnya saat product dibuat, dihapus, atau dipromosikan. Jadi, subscriber tidak perlu meminta data sendiri. Publisher langsung mendorong (push) informasi yang dibutuhkan.
+
+2. Kalau pada kasus ini kita memakai Pull model, maka subscriber tidak akan langsung menerima semua detail data dari publisher. Subscriber hanya akan tahu bahwa ada perubahan, lalu subscriber sendiri yang mengambil data yang dibutuhkan dari publisher.
+
+Kelebihan Pull model:
+
+-Data yang dikirim awal bisa lebih sederhana
+
+-Subscriber bisa mengambil hanya data yang benar-benar dibutuhkan
+
+-Publisher jadi tidak perlu mengirim payload yang lengkap ke semua subscriber
+
+Kekurangan Pull model
+
+-Subscriber jadi lebih bergantung pada publisher karena harus request lagi untuk ambil data
+
+-Proses notifikasi bisa jadi lebih lambat karena perlu request tambahan
+
+-Implementasi jadi lebih kompleks dibanding Push model
+
+-Menambah traffic komunikasi antara subscriber dan publisher
+
+untuk kasus bambangshop Push model lebih cocok karena notifikasi yang dibutuhkan sederhana dan bisa langsung dikirim tanpa langkah tambahan.
+
+3. Kalau tidak memakai multi-threading, maka proses notifikasi akan berjalan secara satu per satu sequential. Artinya, publisher harus menunggu pengiriman notifikasi ke satu subscriber selesai dulu sebelum lanjut ke subscriber berikutnya.
+
+Akibatnya:
+
+Response program bisa jadi lebih lambat
+Kalau ada subscriber yang lambat atau tidak merespons, proses notifikasi lain ikut tertunda
+Performa aplikasi menurun, terutama jika jumlah subscriber banyak. tanpa multi-threading, proses notifikasi bisa menjadi bottleneck. Dengan multi-threading, beberapa notifikasi bisa dikirim secara bersamaan, sehingga proses jadi lebih cepat dan tidak terlalu menghambat request utama.

@@ -36,6 +36,7 @@ pub fn delete(id: usize) -> Result<Json<Product>> {
         Ok(f) => Ok(Json::from(f)),
         Err(e) => Err(e)
     };
+}
 
 #[post("/<id>/publish")]
 pub fn publish(id: usize) -> Result<Json<Product>> {
@@ -43,5 +44,4 @@ pub fn publish(id: usize) -> Result<Json<Product>> {
         Ok(f) => Ok(Json::from(f)),
         Err(e) => Err(e)
     };
-}
 }
