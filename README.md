@@ -90,4 +90,12 @@ Dalam aplikasi seperti BambangShop, bissa ada banyak request yang mengakses data
 
 #### Reflection Publisher-2
 
+1. Pemisahan Service dan Repository dari Model dilakukan untuk mengikuti prinsip separation of concerns. Dalam MVC klasik, Model memang mencakup data dan business logic, tetapi kalau semua digabung dalam satu tempat, kode bisa jadi terlalu kompleks dan sulit dikelola. jadi nanti model hanya untuk representasi data, repo untuk akses dan penyimpanan data dan service untuk bisnis logic kode jadi lebih modular, mudah dibaca, dan lebih mudah di-maintain. Selain itu, perubahan di satu bagian misalnya cara penyimpanan data tidak terlalu mempengaruhi bagian lain.
+
+2. Kalau semua logic dimasukkan ke dalam Model, maka setiap Model (Program, Subscriber, Notification) akan menangani terlalu banyak hal sekaligus: data, logic, dan juga interaksi dengan model lain. Akibatnya model jadi fat model, banyak dependensi antar model, kode jadi sulit dipahami dan sulit di debug, perubahan kecil bisa berdampak ke banyak bagian.
+
+3. Menurut saya, Postman sangat membantu untuk testing API yang sedang kita buat. Dengan Postman kita bisa langsung mencoba endpoint seperti subscribe dan unsubscribe tanpa perlu membuat frontend. Contohnya kita bisa mengirim request http get post dengan mudah
+bisa lihat respong langsung, debug api lebih mudah,  fitur yang berguna seperti collection
+untuk mengelompokkan endpoint, env variables untuk menyimpan url atau parameter, request body editor memudahkan kirim json dan history melihat requst sebelumnya, dll.
+
 #### Reflection Publisher-3
