@@ -78,6 +78,16 @@ This is the place for you to write reflections:
 
 #### Reflection Publisher-1
 
+1. Menurut sayaa untuk kasus BambangShop saat ini satu struct Subscriber saja sudah cukup, ada Observer pattern, interface biasanya dipakai kalau ada banyak jenis observer dengan perilaku yang berbeda-beda tetapi tetap punya method umum yang sama, seperti update().Namun karena di BambangShop, semua subscriber pada dasarnya punya fungsi yang sama, yaitu menerima notifikasi ke endpoint tertentu. Karena itu, belum ada kebutuhan khusus untuk membuat trait.
+Jadi menurut saya penggunaan trait di sini masih belum perlu dan struct saja sudah cukup. Trait baru akan lebih berguna kalau nanti ada banyak jenis subscriber dengan cara kerja yang berbeda.
+
+2. Menurut saya, Vec sebenarnya bisa saja dipakai, tetapi kurang cocok untuk kasus ini. Alasannya karena id pada Program dan url pada Subscriber harus unik. Kalau menggunakan Vec, kita harus mengecek satu per satu isi list untuk memastikan datanya belum ada. Ini kurang efisien.
+
+Kalau menggunakan DashMap, data bisa langsung disimpan dengan key yang unik, misalnya url subscriber. Jadi pencarian, penambahan, dan penghapusan data jadi lebih mudah dan lebih cepat. Menurut saya, untuk kasus yang memang butuh uniqueness, DashMap lebih tepat dibanding Vec.
+
+3. Menurut saya Singleton pattern saja tidak cukup. Singleton hanya memastikan bahwa instance data yang dipakai itu cuma satu secara global. Tetapi Singleton tidak otomatis membuat data tersebut aman diakses oleh banyak thread sekaligus.
+Dalam aplikasi seperti BambangShop, bissa ada banyak request yang mengakses data subscriber secara bersamaan. Karena itu, kita tetap butuh struktur data yang thread-safe. Di sinilah DashMap diperlukan. Jadi, Singleton dan DashMap sebenarnya punya fungsi yang berbeda yaitu Singleton untuk satu instance global, sedangkan DashMap untuk akses data yang aman secara concurrent. DashMap tetap diperlukan, dan tidak bisa digantikan hanya dengan Singleton pattern.
+
 #### Reflection Publisher-2
 
 #### Reflection Publisher-3
